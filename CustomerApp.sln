@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAppBLL", "CustomerA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAppDAL", "CustomerAppDAL\CustomerAppDAL.csproj", "{DE52C770-2174-4649-9659-A59547AB63A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerRestAPI", "CustomerRestAPI\CustomerRestAPI.csproj", "{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DE52C770-2174-4649-9659-A59547AB63A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE52C770-2174-4649-9659-A59547AB63A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE52C770-2174-4649-9659-A59547AB63A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
