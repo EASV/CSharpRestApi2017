@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomerAppBLL;
+using CustomerAppBLL.BusinessObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace CustomerRestAPI.Controllers
 {
@@ -11,24 +14,27 @@ namespace CustomerRestAPI.Controllers
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
+        BLLFacade facade = new BLLFacade();
         // GET: api/Customers
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<CustomerBO> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            return facade.CustomerService.GetAll();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public CustomerBO Get(int id)
         {
-            return "value";
+            return facade.CustomerService.Get(id);
         }
         
         // POST: api/Customers
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]CustomerBO cust)
         {
+            facade.CustomerService.Create(cust);
         }
         
         // PUT: api/Customers/5
