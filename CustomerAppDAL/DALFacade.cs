@@ -13,7 +13,7 @@ namespace CustomerAppDAL
             get
             {
                 return new CustomerRepositoryEFMemory(
-                    new Context.InMemoryContext());
+                    new Context.CustomerAppContext());
             }
         }
 

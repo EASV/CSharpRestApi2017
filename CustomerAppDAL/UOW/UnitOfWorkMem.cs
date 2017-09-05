@@ -7,11 +7,11 @@ namespace CustomerAppDAL.UOW
     public class UnitOfWorkMem : IUnitOfWork
     {
         public ICustomerRepository CustomerRepository { get; internal set; }
-        private InMemoryContext context;
+        private CustomerAppContext context;
 
         public UnitOfWorkMem()
         {
-            context = new InMemoryContext();
+            context = new CustomerAppContext();
             CustomerRepository = new CustomerRepositoryEFMemory(context);
         }
 
