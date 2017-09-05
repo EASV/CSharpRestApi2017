@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CustomerAppBLL;
+using CustomerAppBLL.BusinessObjects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace CustomerRestAPI
 {
@@ -32,6 +28,20 @@ namespace CustomerRestAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                var facade = new BLLFacade();
+                facade.CustomerService.Create(
+                    new CustomerBO() {
+                        FirstName="Lars",
+                        LastName = "Bilde",
+                        Address = "Home"
+                    });
+                facade.CustomerService.Create(
+                    new CustomerBO()
+                    {
+                        FirstName = "Ole",
+                        LastName = "Eriksen",
+                        Address = "Somewhere"
+                    });
             }
 
             app.UseMvc();

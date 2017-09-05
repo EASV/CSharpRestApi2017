@@ -32,21 +32,41 @@ namespace CustomerRestAPI.Controllers
         
         // POST: api/Customers
         [HttpPost]
-        public void Post([FromBody]CustomerBO cust)
+        public IActionResult Post([FromBody]CustomerBO cust)
         {
-            facade.CustomerService.Create(cust);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            } 
+            return Ok(facade.CustomerService.Create(cust));
         }
         
+        //      api/ControllerName/id
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]CustomerBO cust)
         {
+            if(id != cust.Id)
+            {
+                return BadRequest("Path Id does not match Customer ID in json object");
+            }
+            try
+            {
+                var customer = facade.CustomerService.Update(cust);
+                return Ok(customer);
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
+            
         }
-        
-        // DELETE: api/ApiWithActions/5
+
+        // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            facade.CustomerService.Delete(id);
         }
     }
 }
