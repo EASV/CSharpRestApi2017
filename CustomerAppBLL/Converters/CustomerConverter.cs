@@ -5,7 +5,6 @@ namespace CustomerAppBLL.Converters
 {
     class CustomerConverter
     {
-
         internal Customer Convert(CustomerBO cust)
         {
             return new Customer()

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CustomerRestAPI
 {
@@ -41,6 +42,14 @@ namespace CustomerRestAPI
                         FirstName = "Ole",
                         LastName = "Eriksen",
                         Address = "Somewhere"
+                    });
+
+                facade.OrderService.Create(
+                    new OrderBO()
+                    {
+                        DeliveryDate = DateTime.Now.AddMonths(1),
+                        OrderDate = DateTime.Now.AddMonths(-1)
+                    
                     });
             }
 
