@@ -17,7 +17,7 @@ namespace CustomerAppBLL.Services
         {
             this.facade = facade;
         }
-
+        
         public CustomerBO Create(CustomerBO cust)
         {
             using(var uow = facade.UnitOfWork)
@@ -25,6 +25,19 @@ namespace CustomerAppBLL.Services
 				var newCust = uow.CustomerRepository.Create(conv.Convert(cust));
 				uow.Complete();
 				return conv.Convert(newCust);
+            }
+        }
+
+        public void CreateAll(List<CustomerBO> customers)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                foreach (var customer in customers)
+                {
+                    uow.CustomerRepository.Create(conv.Convert(customer));
+                    
+                }
+                uow.Complete();
             }
         }
 

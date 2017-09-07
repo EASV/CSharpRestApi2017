@@ -18,7 +18,7 @@ namespace CustomerAppDAL.Repositories
         public Order Create(Order order)
         {
             _context.Orders.Add(order);
-            return order;
+             return order;
         }
 
         public Order Delete(int Id)

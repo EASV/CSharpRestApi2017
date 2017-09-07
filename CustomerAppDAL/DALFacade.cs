@@ -8,20 +8,11 @@ namespace CustomerAppDAL
 {
     public class DALFacade
     {
-        public ICustomerRepository CustomerRepository {
-            //get { return new CustomerRepositoryFakeDB(); }
-            get
-            {
-                return new CustomerRepositoryEFMemory(
-                    new Context.CustomerAppContext());
-            }
-        }
-
         public IUnitOfWork UnitOfWork
 		{
 			get
 			{
-				return new UnitOfWorkMem();
+				return new UnitOfWork();
 			}
 		}
 
