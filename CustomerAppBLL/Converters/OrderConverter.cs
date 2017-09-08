@@ -7,22 +7,25 @@ namespace CustomerAppBLL.Converters
     {
         internal Order Convert(OrderBO order)
         {
-            return new Order()
+			if (order == null) { return null; }
+			return new Order()
             {
                 Id = order.Id,
                 DeliveryDate = order.DeliveryDate,
-                OrderDate = order.OrderDate
+                OrderDate = order.OrderDate,
+                Customer = new CustomerConverter().Convert(order.Customer),
             };
         }
 
         internal OrderBO Convert(Order order)
         {
-            return new OrderBO()
+			if (order == null) { return null; }
+			return new OrderBO()
             {
                 Id = order.Id,
                 DeliveryDate = order.DeliveryDate,
                 OrderDate = order.OrderDate
-            };
+			};
         }
     }
 }

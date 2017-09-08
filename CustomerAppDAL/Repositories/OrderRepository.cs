@@ -4,6 +4,7 @@ using System.Text;
 using CustomerAppDAL.Entities;
 using CustomerAppDAL.Context;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerAppDAL.Repositories
 {
@@ -17,6 +18,11 @@ namespace CustomerAppDAL.Repositories
 
         public Order Create(Order order)
         {
+            if(order.Customer != null)
+            {
+                _context.Entry(order.Customer).State = 
+                    EntityState.Unchanged;
+            }
             _context.Orders.Add(order);
              return order;
         }

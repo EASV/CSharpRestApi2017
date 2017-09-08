@@ -30,7 +30,7 @@ namespace CustomerRestAPI
             {
                 app.UseDeveloperExceptionPage();
                 var facade = new BLLFacade();
-                facade.CustomerService.Create(
+                var cust = facade.CustomerService.Create(
                     new CustomerBO() {
                         FirstName="Lars",
                         LastName = "Bilde",
@@ -48,8 +48,8 @@ namespace CustomerRestAPI
                     new OrderBO()
                     {
                         DeliveryDate = DateTime.Now.AddMonths(1),
-                        OrderDate = DateTime.Now.AddMonths(-1)
-                    
+                        OrderDate = DateTime.Now.AddMonths(-1),
+                        Customer =cust
                     });
             }
 
