@@ -24,7 +24,9 @@ namespace CustomerAppBLL.Converters
             {
                 Id = order.Id,
                 DeliveryDate = order.DeliveryDate,
-                OrderDate = order.OrderDate
+                OrderDate = order.OrderDate,
+				Customer = new CustomerConverter().Convert(order.Customer),
+
 			};
         }
     }
