@@ -13,7 +13,7 @@ namespace CustomerAppBLL.Converters
                 Id = order.Id,
                 DeliveryDate = order.DeliveryDate,
                 OrderDate = order.OrderDate,
-                Customer = new CustomerConverter().Convert(order.Customer),
+                CustomerId = order.CustomerId
             };
         }
 
@@ -26,7 +26,7 @@ namespace CustomerAppBLL.Converters
                 DeliveryDate = order.DeliveryDate,
                 OrderDate = order.OrderDate,
 				Customer = new CustomerConverter().Convert(order.Customer),
-
+                CustomerId = order.CustomerId
 			};
         }
     }

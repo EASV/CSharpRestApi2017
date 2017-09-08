@@ -18,11 +18,6 @@ namespace CustomerAppDAL.Repositories
 
         public Order Create(Order order)
         {
-            if(order.Customer != null)
-            {
-                _context.Entry(order.Customer).State = 
-                    EntityState.Unchanged;
-            }
             _context.Orders.Add(order);
              return order;
         }

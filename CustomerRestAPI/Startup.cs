@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace CustomerRestAPI
 {
@@ -24,11 +25,14 @@ namespace CustomerRestAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+				loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+				loggerFactory.AddDebug();
+
+				app.UseDeveloperExceptionPage();
                 var facade = new BLLFacade();
                 var cust = facade.CustomerService.Create(
                     new CustomerBO() {
@@ -44,13 +48,16 @@ namespace CustomerRestAPI
                         Address = "Somewhere"
                     });
 
-                facade.OrderService.Create(
-                    new OrderBO()
-                    {
-                        DeliveryDate = DateTime.Now.AddMonths(1),
-                        OrderDate = DateTime.Now.AddMonths(-1),
-                        Customer =cust
-                    });
+                for (int i = 0; i < 10000; i++){
+					facade.OrderService.Create(
+					new OrderBO()
+					{
+						DeliveryDate = DateTime.Now.AddMonths(1),
+						OrderDate = DateTime.Now.AddMonths(-1),
+						Customer = cust
+					});
+                }
+
             }
 
             app.UseMvc();

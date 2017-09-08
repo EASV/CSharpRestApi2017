@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace CustomerAppDAL.Context
 {
@@ -16,10 +17,10 @@ namespace CustomerAppDAL.Context
         //Options That we want in Memory
         public CustomerAppContext() : base(options)
         {
-
-        }
+		}
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
     }
+
 }
