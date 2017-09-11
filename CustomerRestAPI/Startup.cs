@@ -54,7 +54,7 @@ namespace CustomerRestAPI
 					{
 						DeliveryDate = DateTime.Now.AddMonths(1),
 						OrderDate = DateTime.Now.AddMonths(-1),
-						Customer = cust
+                        CustomerId = cust.Id
 					});
                 }
 

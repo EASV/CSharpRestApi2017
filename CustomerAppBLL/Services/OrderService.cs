@@ -66,7 +66,10 @@ namespace CustomerAppBLL.Services
                 }
                 orderEntity.DeliveryDate = order.DeliveryDate;
                 orderEntity.OrderDate = order.OrderDate;
+                orderEntity.CustomerId = order.CustomerId;
                 uow.Complete();
+                //BLL choice
+                orderEntity.Customer = uow.CustomerRepository.Get(orderEntity.CustomerId);
                 return conv.Convert(orderEntity);
             }
         }
