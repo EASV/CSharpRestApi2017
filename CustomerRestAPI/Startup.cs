@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace CustomerRestAPI
 {
@@ -34,18 +35,26 @@ namespace CustomerRestAPI
 
 				app.UseDeveloperExceptionPage();
                 var facade = new BLLFacade();
+
+                var address = facade.AddressService.Create(
+                    new AddressBO() {
+                        City = "Kolding",
+                        Street = "SesamStrasse",
+                        Number = "22A"
+                    });
+
                 var cust = facade.CustomerService.Create(
                     new CustomerBO() {
                         FirstName="Lars",
                         LastName = "Bilde",
-                        Address = "Home"
+                        Addresses = new List<AddressBO>() { address }
                     });
                 facade.CustomerService.Create(
                     new CustomerBO()
                     {
                         FirstName = "Ole",
                         LastName = "Eriksen",
-                        Address = "Somewhere"
+                        Addresses = new List<AddressBO>() { address }
                     });
 
                 for (int i = 0; i < 10000; i++){

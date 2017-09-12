@@ -79,9 +79,10 @@ namespace CustomerAppBLL.Services
 					throw new InvalidOperationException("Customer not found");
 				}
 
-				customerFromDb.FirstName = cust.FirstName;
-				customerFromDb.LastName = cust.LastName;
-				customerFromDb.Address = cust.Address;
+                var customerUpdated = conv.Convert(cust);
+				customerFromDb.FirstName = customerUpdated.FirstName;
+				customerFromDb.LastName = customerUpdated.LastName;
+				customerFromDb.Addresses = customerUpdated.Addresses;
                 uow.Complete();
 				return conv.Convert(customerFromDb);
             }

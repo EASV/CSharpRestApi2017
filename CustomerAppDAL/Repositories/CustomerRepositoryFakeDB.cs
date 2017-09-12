@@ -19,7 +19,7 @@ namespace CustomerAppDAL.Repositories
                 Id = Id++,
                 FirstName = cust.FirstName,
                 LastName = cust.LastName,
-                Address = cust.Address
+                Addresses = cust.Addresses
             });
             return newCust;
         }

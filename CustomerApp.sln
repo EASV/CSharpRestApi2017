@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAppUI", "CustomerAppUI\CustomerAppUI.csproj", "{DA6B9899-8C64-43C1-AE76-50C1634AED44}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAppBLL", "CustomerAppBLL\CustomerAppBLL.csproj", "{49648D86-44BA-4EA4-B85A-0228435FFF9B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAppDAL", "CustomerAppDAL\CustomerAppDAL.csproj", "{DE52C770-2174-4649-9659-A59547AB63A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerRestAPI", "CustomerRestAPI\CustomerRestAPI.csproj", "{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerRestAPI", "CustomerRestAPI\CustomerRestAPI.csproj", "{0BD5D6D3-9EBA-4E8C-832B-53E9FA19C087}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DA6B9899-8C64-43C1-AE76-50C1634AED44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA6B9899-8C64-43C1-AE76-50C1634AED44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA6B9899-8C64-43C1-AE76-50C1634AED44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA6B9899-8C64-43C1-AE76-50C1634AED44}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49648D86-44BA-4EA4-B85A-0228435FFF9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49648D86-44BA-4EA4-B85A-0228435FFF9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49648D86-44BA-4EA4-B85A-0228435FFF9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
