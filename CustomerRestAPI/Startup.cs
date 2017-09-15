@@ -57,7 +57,7 @@ namespace CustomerRestAPI
                         Addresses = new List<AddressBO>() { address }
                     });
 
-                for (int i = 0; i < 10000; i++){
+                for (int i = 0; i < 5; i++){
 					facade.OrderService.Create(
 					new OrderBO()
 					{

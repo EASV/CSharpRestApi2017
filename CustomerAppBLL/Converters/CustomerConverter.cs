@@ -19,7 +19,10 @@ namespace CustomerAppBLL.Converters
             return new Customer()
             {
                 Id = cust.Id,
-                Addresses = cust.Addresses.Select(aConv.Convert).ToList(),
+                Addresses = cust.Addresses?.Select(a => new CustomerAddress() {
+                    AddressId = a.Id,
+                    CustomerId = cust.Id
+                }).ToList(),
                 FirstName = cust.FirstName,
                 LastName = cust.LastName
             };
@@ -28,12 +31,17 @@ namespace CustomerAppBLL.Converters
         internal CustomerBO Convert(Customer cust)
         {
 			if (cust == null) { return null; }
-			return new CustomerBO()
+            return new CustomerBO()
             {
                 Id = cust.Id,
-                Addresses = cust.Addresses.Select(aConv.Convert).ToList(),
+                Addresses = cust.Addresses?.Select(a => new AddressBO() {
+                    Id = a.CustomerId,
+                    City = a.Address?.City,
+                    Number = a.Address?.Number,
+                    Street = a.Address?.Street
+                }).ToList(),
                 FirstName = cust.FirstName,
-                LastName = cust.LastName
+                LastName = cust.LastName 
             };
         }
     }
