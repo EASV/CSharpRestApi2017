@@ -43,18 +43,34 @@ namespace CustomerRestAPI
                         Number = "22A"
                     });
 
+                var address2 = facade.AddressService.Create(
+                    new AddressBO()
+                    {
+                        City = "BingoCity",
+                        Street = "DingoDoiok",
+                        Number = "2e2"
+                    });
+
+                var address3 = facade.AddressService.Create(
+                    new AddressBO()
+                    {
+                        City = "Hurly Smurf",
+                        Street = "Trainstiik",
+                        Number = "44d"
+                    });
+
                 var cust = facade.CustomerService.Create(
                     new CustomerBO() {
                         FirstName="Lars",
                         LastName = "Bilde",
-                        Addresses = new List<AddressBO>() { address }
+                        AddressIds = new List<int>() { address.Id, address3.Id }
                     });
                 facade.CustomerService.Create(
                     new CustomerBO()
                     {
                         FirstName = "Ole",
                         LastName = "Eriksen",
-                        Addresses = new List<AddressBO>() { address }
+                        AddressIds = new List<int>() { address.Id, address2.Id }
                     });
 
                 for (int i = 0; i < 5; i++){

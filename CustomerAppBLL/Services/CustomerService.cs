@@ -12,6 +12,7 @@ namespace CustomerAppBLL.Services
     class CustomerService : ICustomerService
     {
         CustomerConverter conv = new CustomerConverter();
+        AddressConverter aConv = new AddressConverter();
         DALFacade facade;
         public CustomerService(DALFacade facade)
         {
@@ -55,8 +56,23 @@ namespace CustomerAppBLL.Services
         {
             using (var uow = facade.UnitOfWork)
 			{
-                return conv.Convert(uow.CustomerRepository.Get(Id));
-			}
+                //1. Get and convert the customer
+                var cust = conv.Convert(uow.CustomerRepository.Get(Id));
+
+                //2. Get All related Addresses from AddressRepository using addressIds
+                //3. Convert and Add the Addresses to the CustomerBO
+
+                /*cust.Addresses = cust.AddressIds?
+                    .Select(id => aConv.Convert(uow.AddressRepository.Get(id)))
+                    .ToList();*/
+
+                cust.Addresses = uow.AddressRepository.GetAllById(cust.AddressIds)
+                    .Select(a => aConv.Convert(a))
+                    .ToList();
+
+                //4. Return the Customer
+                return cust;
+            }
         }
 
         public List<CustomerBO> GetAll()
@@ -82,7 +98,25 @@ namespace CustomerAppBLL.Services
                 var customerUpdated = conv.Convert(cust);
 				customerFromDb.FirstName = customerUpdated.FirstName;
 				customerFromDb.LastName = customerUpdated.LastName;
-				customerFromDb.Addresses = customerUpdated.Addresses;
+
+                //1. Remove All, except the "old" ids we wanna keep (Avoid attached issues)
+                customerFromDb.Addresses
+                            .RemoveAll(a => !customerUpdated.Addresses
+                                .Exists(aDb => aDb.Equals(a)));
+
+                //2. Add All new CustomerAddresses not yet seen in the DB using union to avoid duplicate
+                //Equal and HashCode Required
+                customerFromDb.Addresses =
+                    customerFromDb.Addresses
+                        .Union(customerUpdated.Addresses)
+                        .ToList();
+                //1. Implement A "ok" hashcode and equals method for CustomerAddresses
+
+                //2. Remove All ids, except the "old" ids we wanna keep (Avoid attached issues)
+
+                //3. Add All new CustomerAddresses not yet seen in the DB using union to avoid duplicate
+                //Equal and HashCode Required
+
                 uow.Complete();
 				return conv.Convert(customerFromDb);
             }
