@@ -22,6 +22,7 @@ namespace CustomerAppBLL.BusinessObjects
                 
         }
 
+        public List<int> AddressIds { get; set; }
         public List<AddressBO> Addresses { get; set; }
     }
 }

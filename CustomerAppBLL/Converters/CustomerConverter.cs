@@ -19,8 +19,8 @@ namespace CustomerAppBLL.Converters
             return new Customer()
             {
                 Id = cust.Id,
-                Addresses = cust.Addresses?.Select(a => new CustomerAddress() {
-                    AddressId = a.Id,
+                Addresses = cust.AddressIds?.Select(aId => new CustomerAddress() {
+                    AddressId = aId,
                     CustomerId = cust.Id
                 }).ToList(),
                 FirstName = cust.FirstName,
@@ -34,12 +34,7 @@ namespace CustomerAppBLL.Converters
             return new CustomerBO()
             {
                 Id = cust.Id,
-                Addresses = cust.Addresses?.Select(a => new AddressBO() {
-                    Id = a.CustomerId,
-                    City = a.Address?.City,
-                    Number = a.Address?.Number,
-                    Street = a.Address?.Street
-                }).ToList(),
+                AddressIds = cust.Addresses?.Select(a => a.AddressId).ToList(),
                 FirstName = cust.FirstName,
                 LastName = cust.LastName 
             };

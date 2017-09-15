@@ -30,14 +30,15 @@ namespace CustomerAppDAL.Repositories
 
         public Customer Get(int Id)
         {
-            return _context.Customers.FirstOrDefault(x => x.Id == Id);
+            return _context.Customers
+                .Include(c => c.Addresses)
+                .FirstOrDefault(x => x.Id == Id);
         }
 
         public List<Customer> GetAll()
         {
             return _context.Customers
                 .Include(c => c.Addresses)
-                .ThenInclude(ca => ca.Address)
                 .ToList();
         }
     }
