@@ -99,23 +99,24 @@ namespace CustomerAppBLL.Services
 				customerFromDb.FirstName = customerUpdated.FirstName;
 				customerFromDb.LastName = customerUpdated.LastName;
 
-                //1. Remove All, except the "old" ids we wanna keep (Avoid attached issues)
-                customerFromDb.Addresses
-                            .RemoveAll(a => !customerUpdated.Addresses
-                                .Exists(aDb => aDb.Equals(a)));
+                //1. Remove All, except the "old" ids we 
+                //      wanna keep (Avoid attached issues)
+                customerFromDb.Addresses.RemoveAll(
+                    ca => !customerUpdated.Addresses.Exists(
+                        a => a.AddressId == ca.AddressId &&
+                        a.CustomerId == ca.CustomerId));
 
-                //2. Add All new CustomerAddresses not yet seen in the DB using union to avoid duplicate
-                //Equal and HashCode Required
-                customerFromDb.Addresses =
-                    customerFromDb.Addresses
-                        .Union(customerUpdated.Addresses)
-                        .ToList();
-                //1. Implement A "ok" hashcode and equals method for CustomerAddresses
+                //2. Remove All ids already in database 
+                //      from customerUpdated
+                customerUpdated.Addresses.RemoveAll(
+                    ca => customerFromDb.Addresses.Exists(
+                        a => a.AddressId == ca.AddressId &&
+                        a.CustomerId == ca.CustomerId));
 
-                //2. Remove All ids, except the "old" ids we wanna keep (Avoid attached issues)
-
-                //3. Add All new CustomerAddresses not yet seen in the DB using union to avoid duplicate
-                //Equal and HashCode Required
+                //3. Add All new CustomerAddresses not 
+                //      yet seen in the DB
+                customerFromDb.Addresses.AddRange(
+                    customerUpdated.Addresses);
 
                 uow.Complete();
 				return conv.Convert(customerFromDb);
