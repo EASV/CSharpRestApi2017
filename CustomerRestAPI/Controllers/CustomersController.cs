@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using CustomerAppBLL;
 using CustomerAppBLL.BusinessObjects;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace CustomerRestAPI.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class CustomersController : Controller
@@ -48,7 +50,7 @@ namespace CustomerRestAPI.Controllers
         {
             if(id != cust.Id)
             {
-                return BadRequest("Path Id does not match Customer ID in json object");
+                return BadRequest("I AM LIVEEE");
             }
             try
             {
@@ -70,3 +72,4 @@ namespace CustomerRestAPI.Controllers
         }
     }
 }
+//[EnableCors("MyPolicy")]

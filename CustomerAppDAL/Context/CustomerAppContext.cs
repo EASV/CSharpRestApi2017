@@ -15,9 +15,18 @@ namespace CustomerAppDAL.Context
                          .Options;
 
         //Options That we want in Memory
-        public CustomerAppContext() : base(options)
+        //      public CustomerAppContext() : base(options)
+        //      {
+        //}
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-		}
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=tcp:easv-cs.database.windows.net,1433;Initial Catalog=CS2017;Persist Security Info=False;User ID=username;Password=password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
