@@ -85,6 +85,21 @@ namespace CustomerAppBLL.Services
 			}
         }
 
+        public List<CustomerBO> 
+        GetAllByFirstName(string t, int ps, int cp)
+        {
+            using (var uow = facade.UnitOfWork){
+                var skip = (ps * cp) - ps;
+                return uow.CustomerRepository
+                          .GetAll()
+                          .Where(c => c.FirstName.Contains(t))
+                          .Skip(skip)
+                          .Take(ps)
+                          .Select(c => conv.Convert(c))
+                          .ToList();
+            }
+        }
+
         public CustomerBO Update(CustomerBO cust)
         {
             using (var uow = facade.UnitOfWork)

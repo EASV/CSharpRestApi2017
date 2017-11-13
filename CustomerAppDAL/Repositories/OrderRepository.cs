@@ -34,7 +34,7 @@ namespace CustomerAppDAL.Repositories
             return _context.Orders.FirstOrDefault(o => o.Id == Id);
         }
 
-        public List<Order> GetAll()
+        public IEnumerable<Order> GetAll()
         {
             return _context.Orders.ToList();
         }

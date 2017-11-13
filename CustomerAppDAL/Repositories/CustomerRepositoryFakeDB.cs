@@ -36,7 +36,7 @@ namespace CustomerAppDAL.Repositories
             return Customers.FirstOrDefault(x => x.Id == Id);
         }
 
-        public List<Customer> GetAll()
+        public IEnumerable<Customer> GetAll()
         {
             return new List<Customer>(Customers);
         }

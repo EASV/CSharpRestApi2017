@@ -33,7 +33,7 @@ namespace CustomerAppDAL.Repositories
             return _context.Addresses.FirstOrDefault(a => a.Id == Id);
         }
 
-        public List<Address> GetAll()
+        public IEnumerable<Address> GetAll()
         {
             return _context.Addresses.ToList();
         }

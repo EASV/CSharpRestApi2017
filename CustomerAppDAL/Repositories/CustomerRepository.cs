@@ -35,11 +35,10 @@ namespace CustomerAppDAL.Repositories
                 .FirstOrDefault(x => x.Id == Id);
         }
 
-        public List<Customer> GetAll()
+        public IEnumerable<Customer> GetAll()
         {
             return _context.Customers
-                .Include(c => c.Addresses)
-                .ToList();
+                .Include(c => c.Addresses);
         }
     }
 }

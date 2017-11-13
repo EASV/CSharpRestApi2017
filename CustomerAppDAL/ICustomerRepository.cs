@@ -8,7 +8,7 @@ namespace CustomerAppDAL
         //C
         Customer Create(Customer cust);
         //R
-        List<Customer> GetAll();
+        IEnumerable<Customer> GetAll();
         Customer Get(int Id);
         //U
         //No Update for Repository, It will be the task of Unit of Work

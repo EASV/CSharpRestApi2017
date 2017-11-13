@@ -14,7 +14,13 @@ namespace CustomerRestAPI.Controllers
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        BLLFacade facade = new BLLFacade();
+        IBLLFacade facade;
+
+        public OrdersController(IBLLFacade facade)
+        {
+            this.facade = facade;
+        }
+
         // GET: api/Orders
         [HttpGet]
         public IEnumerable<OrderBO> Get()

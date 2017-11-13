@@ -10,7 +10,7 @@ namespace CustomerAppDAL
         //C
         Order Create(Order cust);
         //R
-        List<Order> GetAll();
+        IEnumerable<Order> GetAll();
         Order Get(int Id);
         //U
         //No Update for Repository, It will be the task of Unit of Work

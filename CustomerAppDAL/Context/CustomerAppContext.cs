@@ -4,28 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace CustomerAppDAL.Context
 {
     class CustomerAppContext : DbContext
     {
-        static DbContextOptions<CustomerAppContext> options =
-            new DbContextOptionsBuilder<CustomerAppContext>()
-                         .UseInMemoryDatabase("TheDB")
-                         .Options;
-
         //Options That we want in Memory
-        //      public CustomerAppContext() : base(options)
-        //      {
-        //}
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CustomerAppContext(DbContextOptions<CustomerAppContext> options): base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=tcp:easv-cs.database.windows.net,1433;Initial Catalog=CS2017;Persist Security Info=False;User ID=username;Password=password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

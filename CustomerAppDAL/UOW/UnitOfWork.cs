@@ -1,6 +1,8 @@
 ﻿using System;
 using CustomerAppDAL.Context;
 using CustomerAppDAL.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CustomerAppDAL.UOW
 {
@@ -11,9 +13,21 @@ namespace CustomerAppDAL.UOW
         public IAddressRepository AddressRepository { get; internal set; }
         private CustomerAppContext context;
 
-        public UnitOfWork()
+        public UnitOfWork(DbOptions opt)
         {
-            context = new CustomerAppContext();
+            DbContextOptions<CustomerAppContext> options;
+            if(opt.Environment == "Development" && String.IsNullOrEmpty(opt.ConnectionString)){
+                options = new DbContextOptionsBuilder<CustomerAppContext>()
+                   .UseInMemoryDatabase("TheDB")
+                   .Options;
+            }
+            else{
+                options = new DbContextOptionsBuilder<CustomerAppContext>()
+                .UseSqlServer(opt.ConnectionString)
+                    .Options;
+            }
+
+            context = new CustomerAppContext(options);
             CustomerRepository = new CustomerRepository(context);
             OrderRepository = new OrderRepository(context);
             AddressRepository = new AddressRepository(context);

@@ -7,7 +7,7 @@ using CustomerAppBLL.BusinessObjects;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Extensions.Configuration;
 
 namespace CustomerRestAPI.Controllers
 {
@@ -16,14 +16,28 @@ namespace CustomerRestAPI.Controllers
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        BLLFacade facade = new BLLFacade();
+        IBLLFacade facade;
+
+        public CustomersController(IBLLFacade facade)
+		{
+            this.facade = facade;
+		}
+
+        [HttpGet]
+        [Route("search")]
+        public IActionResult Search([FromQuery]string t, int ps, int cp){
+            var custs = facade.CustomerService
+                              .GetAllByFirstName(t, ps, cp);
+            return Ok(custs);
+        }
+
         // GET: api/Customers
         [HttpGet]
         public IEnumerable<CustomerBO> Get()
         {
-
             return facade.CustomerService.GetAll();
         }
+
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
@@ -31,7 +45,7 @@ namespace CustomerRestAPI.Controllers
         {
             return facade.CustomerService.Get(id);
         }
-        
+
         // POST: api/Customers
         [HttpPost]
         public IActionResult Post([FromBody]CustomerBO cust)
@@ -66,10 +80,16 @@ namespace CustomerRestAPI.Controllers
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            facade.CustomerService.Delete(id);
+			try
+			{
+				return Ok(facade.CustomerService.Delete(id));
+			}
+			catch (InvalidOperationException e)
+			{
+				return StatusCode(404, e.Message);
+			}
         }
     }
 }
-//[EnableCors("MyPolicy")]
